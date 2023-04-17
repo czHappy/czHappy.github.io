@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>hexo tutorial</title>
+      <link href="/2023/04/17/hexo-tutorial/"/>
+      <url>/2023/04/17/hexo-tutorial/</url>
+      
+        <content type="html"><![CDATA[<h1 id="hexo-tutorial"><a href="#hexo-tutorial" class="headerlink" title="hexo tutorial"></a>hexo tutorial</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul><li>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</li></ul><h2 id="nodejs安装"><a href="#nodejs安装" class="headerlink" title="nodejs安装"></a>nodejs安装</h2><ul><li>linux安装nodejs<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://deb.nodesource.com/setup_16.x <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-E</span> <span class="token function">bash</span> - <span class="token operator">&amp;&amp;</span><span class="token punctuation">\</span><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> nodejs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li><li>卸载nodejs<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt-get</span> purge nodejs <span class="token operator">&amp;&amp;</span><span class="token punctuation">\</span><span class="token function">rm</span> <span class="token parameter variable">-r</span> /etc/apt/sources.list.d/nodesource.list<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li><li>安装hexo<pre class="line-numbers language-none"><code class="language-none">npm install -g hexo-cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li><li>测试安装成功<pre class="line-numbers language-none"><code class="language-none">node -vnpm -vhexo -v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li></ul><h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><ul><li>初始化站点<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo init myBlog <span class="token comment"># 以myBlog文件夹为根目录，初始化myBlog</span><span class="token builtin class-name">cd</span> myBlog <span class="token comment"># 进入目录</span><span class="token function">npm</span> <span class="token function">install</span> <span class="token comment"># 安装必要包</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li><li>测试部署<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo s <span class="token comment"># 启动站点， http://localhost:4000访问页面</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul><h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h3 id="资源网站"><a href="#资源网站" class="headerlink" title="资源网站"></a>资源网站</h3><ul><li>主题资源：<a href="https://hexo.io/themes/">https://hexo.io/themes/</a></li><li>经典主题<ul><li><a href="https://theme-next.js.org/">https://theme-next.js.org/</a></li><li><a href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></li></ul></li></ul><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul><li>在根目录下的theme文件夹下，克隆主题仓库<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> theme<span class="token function">git</span> clone https://github.com/blinkfox/hexo-theme-matery.git<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li><li>在 _config.yml 文件中修改theme字段为：theme: hexo-theme-matery</li><li>预览效果<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo g <span class="token comment"># 生成</span>hexo s <span class="token comment"># 启动服务器，在http://localhost:4000查看效果</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li></ul><h2 id="部署github"><a href="#部署github" class="headerlink" title="部署github"></a>部署github</h2><ul><li>无需购买服务器，借助GitHub Page部署个人网站</li><li>在GitHub上建立一个新的仓库，名叫: 用户名.github.io</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2023/04/17/hello-world/"/>
       <url>/2023/04/17/hello-world/</url>
@@ -11,6 +30,12 @@
         <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> test </tag>
+            
+        </tags>
       
     </entry>
     
