@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="Record &amp; Share.">
@@ -309,7 +309,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-07-17 19:56:38" itemprop="dateModified" datetime="2024-07-17T19:56:38+08:00">2024-07-17</time>
+                <time title="Modified: 2024-07-17 20:00:49" itemprop="dateModified" datetime="2024-07-17T20:00:49+08:00">2024-07-17</time>
               </span>
 
           
@@ -328,14 +328,14 @@ mjx-container[display="true"] + br {
 </ul>
 <h2 id="nodejs-hexo-安装"><a href="#nodejs-hexo-安装" class="headerlink" title="nodejs/hexo 安装"></a>nodejs/hexo 安装</h2><ul>
 <li>linux安装nodejs<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_20.x | <span class="built_in">sudo</span> -E bash - &amp;&amp;\</span><br><span class="line"><span class="built_in">sudo</span> apt-get install -y nodejs</span><br></pre></td></tr></table></figure></li>
-<li>卸载nodejs<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get purge nodejs &amp;&amp;\</span><br><span class="line">rm -r /etc/apt/sources.list.d/nodesource.list</span><br></pre></td></tr></table></figure></li>
-<li>hexo 安装<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></li>
-<li>安装成功测试<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<li>卸载nodejs<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt<span class="operator">-</span><span class="keyword">get</span> purge nodejs <span class="operator">&amp;&amp;</span>\</span><br><span class="line">rm <span class="operator">-</span>r <span class="regexp">/etc/</span>apt<span class="regexp">/sources.list.d/</span>nodesource.list</span><br></pre></td></tr></table></figure></li>
+<li>hexo 安装<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure></li>
+<li>安装成功测试<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">node</span> <span class="title">-v</span></span><br><span class="line">npm -v</span><br><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><ul>
-<li>初始化站点<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init myBlog # 以myBlog文件夹为根目录，初始化myBlog</span><br><span class="line">cd myBlog # 进入目录</span><br><span class="line">npm install # 安装必要包</span><br></pre></td></tr></table></figure></li>
-<li>测试部署<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s # 启动站点， http://localhost:4000访问页面</span><br></pre></td></tr></table></figure>
+<li>初始化站点<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init myB<span class="keyword">log</span> <span class="comment"># 以myBlog文件夹为根目录，初始化myBlog</span></span><br><span class="line">cd myB<span class="keyword">log</span> <span class="comment"># 进入目录</span></span><br><span class="line">npm install <span class="comment"># 安装必要包</span></span><br></pre></td></tr></table></figure></li>
+<li>测试部署<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s <span class="meta"># 启动站点， http:<span class="comment">//localhost:4000访问页面</span></span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h2><h3 id="网站资源"><a href="#网站资源" class="headerlink" title="网站资源"></a>网站资源</h3><ul>
@@ -347,21 +347,21 @@ mjx-container[display="true"] + br {
 </li>
 </ul>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
-<li>在根目录下的theme文件夹下，克隆主题仓库<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd theme</span><br><span class="line">git clone github.com:theme-next/hexo-theme-next.git</span><br></pre></td></tr></table></figure></li>
+<li>在根目录下的theme文件夹下，克隆主题仓库<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> theme</span><br><span class="line">git clone github.<span class="keyword">com</span>:theme-<span class="keyword">next</span>/hexo-theme-<span class="keyword">next</span>.git</span><br></pre></td></tr></table></figure></li>
 <li>在 _config.yml 文件中修改theme字段为主题git仓库的名字：theme: hexo-theme-next</li>
-<li>预览效果<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g # 生成</span><br><span class="line">hexo s # 启动服务器，在http://localhost:4000查看效果</span><br></pre></td></tr></table></figure>
+<li>预览效果<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="meta"># 生成</span></span><br><span class="line">hexo s <span class="meta"># 启动服务器，在http:<span class="comment">//localhost:4000查看效果</span></span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="部署github"><a href="#部署github" class="headerlink" title="部署github"></a>部署github</h2><ul>
 <li>无需购买服务器，借助GitHub Page部署个人网站</li>
 <li>在GitHub上建立一个新的仓库，名叫: 用户名.github.io</li>
-<li>安装部署插件 hexo-deployer-git<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li>
-<li>关联GitHub远程仓库，在根目录_config.yml中添加<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:czHappy/czHappy.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure></li>
-<li>建站<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo g # 先生成</span><br><span class="line">hexo d # 部署到Github上</span><br><span class="line"># 用浏览器输入 用户名.github.io 就可以访问</span><br></pre></td></tr></table></figure>
+<li>安装部署插件 hexo-deployer-git<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure></li>
+<li>关联GitHub远程仓库，在根目录_config.yml中添加<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Deployment</span></span><br><span class="line"><span class="meta">## Docs: https:<span class="comment">//hexo.io/docs/one-command-deployment</span></span></span><br><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> git@github.com:czHappy/czHappy.github.io.git</span><br><span class="line"><span class="symbol">  branch:</span> main</span><br></pre></td></tr></table></figure></li>
+<li>建站<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo</span> g <span class="comment"># 先生成</span></span><br><span class="line">hexo d <span class="comment"># 部署到Github上</span></span><br><span class="line"><span class="comment"># 用浏览器输入 用户名.github.io 就可以访问</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><ul>
-<li>在根目录下输入以下命令，自动在/source/_posts下生成文章标题.md文件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new 'blog title'</span><br></pre></td></tr></table></figure>
+<li>在根目录下输入以下命令，自动在/source/_posts下生成文章标题.md文件<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="string">'blog title'</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><ul>
@@ -379,7 +379,7 @@ mjx-container[display="true"] + br {
 <li>进入后台，在左上角的菜单中选择“创建新应用”完成应用创建。</li>
 <li>在左侧“数据”一栏点击“创建 Class”，class名称填写为“Counter”，其他按默认设置。</li>
 <li>在“设置-基本信息-应用Key”中找到 App ID 和 App Key。</li>
-<li>编辑themes/next/_config.yml文件，找到leancloud_visitors设置，修改为如下代码：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">leancloud_counter_security:</span><br><span class="line">  enable_sync: true</span><br><span class="line">  app_id: YOUR_APP_ID</span><br><span class="line">  app_key: YOUR_APP_KEY</span><br><span class="line">  server_url: https://leancloud.cn</span><br><span class="line">  username: czhappy # Will be asked while deploying if is left blank</span><br><span class="line">  password: xxxxx # Recommmended to be left blank. Will be asked while deploying if is left blank</span><br></pre></td></tr></table></figure></li>
+<li>编辑themes/next/_config.yml文件，找到leancloud_visitors设置，修改为如下代码：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">leancloud_counter_security:</span></span><br><span class="line">  <span class="attr">enable_sync:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">app_id:</span> <span class="string">YOUR_APP_ID</span></span><br><span class="line">  <span class="attr">app_key:</span> <span class="string">YOUR_APP_KEY</span></span><br><span class="line">  <span class="attr">server_url:</span> <span class="string">https://leancloud.cn</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">czhappy</span> <span class="comment"># Will be asked while deploying if is left blank</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">xxxxx</span> <span class="comment"># Recommmended to be left blank. Will be asked while deploying if is left blank</span></span><br></pre></td></tr></table></figure></li>
 <li>阅读 <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-leancloud-counter-security">https://github.com/theme-next/hexo-leancloud-counter-security</a> 安装hexo-leancloud-counter-security<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref."></a>Ref.</h2></li>
 <li><a target="_blank" rel="noopener" href="https://hexo.io/docs/">https://hexo.io/docs/</a></li>
 </ul>
@@ -433,7 +433,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-07-17 18:02:29" itemprop="dateModified" datetime="2024-07-17T18:02:29+08:00">2024-07-17</time>
+                <time title="Modified: 2024-07-17 19:49:49" itemprop="dateModified" datetime="2024-07-17T19:49:49+08:00">2024-07-17</time>
               </span>
 
           
