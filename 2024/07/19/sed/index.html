@@ -22,21 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="AWK 简介 awk 是一种处理文本文件的语言，是一个强大的文本分析工具。之所以叫 awk 是因为其取了三位创始人 Alfred Aho，Peter Weinberger, 和 Brian Kernighan 的 Family Name 的首字符。">
+  <meta name="description" content="Sed 简介 sed 是一种功能强大的流式文本编辑器，它是文本处理中非常重要的工具，能够完美的配合正则表达式使用，功能不同凡响。处理时，把当前处理的行存储在临时缓冲区中，称为“模式空间”（pattern space），接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。文件内容并没有改变，除非你使用重定向存储输出或者使用原地修改选项。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux awk 使用方法">
-<meta property="og:url" content="http://example.com/2024/07/18/awk/index.html">
+<meta property="og:title" content="Linux sed">
+<meta property="og:url" content="http://example.com/2024/07/19/sed/index.html">
 <meta property="og:site_name" content="Czhappy&#39;s Blog">
-<meta property="og:description" content="AWK 简介 awk 是一种处理文本文件的语言，是一个强大的文本分析工具。之所以叫 awk 是因为其取了三位创始人 Alfred Aho，Peter Weinberger, 和 Brian Kernighan 的 Family Name 的首字符。">
+<meta property="og:description" content="Sed 简介 sed 是一种功能强大的流式文本编辑器，它是文本处理中非常重要的工具，能够完美的配合正则表达式使用，功能不同凡响。处理时，把当前处理的行存储在临时缓冲区中，称为“模式空间”（pattern space），接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。文件内容并没有改变，除非你使用重定向存储输出或者使用原地修改选项。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-18T06:14:26.000Z">
-<meta property="article:modified_time" content="2024-07-18T06:48:32.524Z">
+<meta property="article:published_time" content="2024-07-19T02:44:33.000Z">
+<meta property="article:modified_time" content="2024-07-19T03:30:34.029Z">
 <meta property="article:author" content="czhappy">
 <meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2024/07/18/awk/">
+<link rel="canonical" href="http://example.com/2024/07/19/sed/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>Linux awk 使用方法 | Czhappy's Blog</title>
+  <title>Linux sed | Czhappy's Blog</title>
   
 
 
@@ -184,7 +184,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/18/awk/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/19/sed/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -197,7 +197,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux awk 使用方法
+          Linux sed
         </h1>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-07-18 14:14:26 / 修改时间：14:48:32" itemprop="dateCreated datePublished" datetime="2024-07-18T14:14:26+08:00">2024-07-18</time>
+              <time title="创建时间：2024-07-19 10:44:33 / 修改时间：11:30:34" itemprop="dateCreated datePublished" datetime="2024-07-19T10:44:33+08:00">2024-07-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,14 +233,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -252,47 +252,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="AWK-简介"><a href="#AWK-简介" class="headerlink" title="AWK 简介"></a>AWK 简介</h2><ul>
-<li>awk 是一种处理文本文件的语言，是一个强大的文本分析工具。之所以叫 awk 是因为其取了三位创始人 Alfred Aho，Peter Weinberger, 和 Brian Kernighan 的 Family Name 的首字符。</li>
+        <h2 id="Sed-简介"><a href="#Sed-简介" class="headerlink" title="Sed 简介"></a>Sed 简介</h2><ul>
+<li>sed 是一种功能强大的流式文本编辑器，它是文本处理中非常重要的工具，能够完美的配合正则表达式使用，功能不同凡响。处理时，把当前处理的行存储在临时缓冲区中，称为“模式空间”（pattern space），接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。文件内容并没有改变，除非你使用重定向存储输出或者使用原地修改选项。Sed主要用来自动编辑一个或多个文件；简化对文件的反复操作；编写转换程序等。</li>
 </ul>
 <span id="more"></span>
 <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
-<li>awk options ‘pattern {action}’ file<ul>
-<li>options：是一些选项，用于控制 awk 的行为。</li>
-<li>pattern：是用于匹配输入数据的模式。如果省略，则 awk 将对所有行进行操作。</li>
-<li>{action}：是在匹配到模式的行上执行的动作。如果省略，则默认动作是打印整行。</li>
-</ul>
+<li>命令格式  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed [options] <span class="string">&#x27;command&#x27;</span> file(s)</span><br><span class="line">sed [options] -f scriptfile file(s)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>sed选项</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-e&lt;script&gt;或--expression=&lt;script&gt;: 以选项中的指定的script来处理输入的文本文件；</span><br><span class="line">-f&lt;script文件&gt;或--file=&lt;script文件&gt;: 以选项中指定的script文件来处理输入的文本文件；</span><br><span class="line">-h或--<span class="built_in">help</span>: 显示帮助；</span><br><span class="line">-n或--quiet或--silent: 静默模式，仅显示script处理后的结果；</span><br><span class="line">-V或--version: 显示版本信息。</span><br><span class="line">-i 直接在文件上进行修改（in-place）</span><br></pre></td></tr></table></figure>
 </li>
-<li>options<ul>
-<li>-F &lt;分隔符&gt; 或 —field-separator=&lt;分隔符&gt;： 指定输入字段的分隔符，默认是空格。使用这个选项可以指定不同于默认分隔符的字段分隔符。</li>
-<li>v &lt;变量名&gt;=&lt;值&gt;： 设置 awk 内部的变量值。可以使用该选项将外部值传递给 awk 脚本中的变量。</li>
-<li>f &lt;脚本文件&gt;： 指定一个包含 awk 脚本的文件。这样可以在文件中编写较大的 awk 脚本，然后通过 -f 选项将其加载。</li>
-</ul>
-</li>
-<li>变量<ul>
-<li>$x表示第x列，从1开始数</li>
-</ul>
+<li><p>常用command</p>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a\：追加行，a\的后面跟上字符串s(多行字符串可以用\n分隔)，则会在当前选择的行的后面都加上字符串s</span><br><span class="line">c\：替换行，c\后面跟上字符串s(多行字符串可以用\n分隔)，则会将当前选中的行替换成字符串s</span><br><span class="line">i\：插入行，i\后面跟上字符串s(多行字符串可以用\n分隔)，则会在当前选中的行的前面都插入字符串s</span><br><span class="line">d：删除行delete，该命令会将当前选中的行删除</span><br><span class="line">p：打印<span class="built_in">print</span>，该命令会打印当前选择的行到屏幕上</span><br><span class="line">y：替换字符，通常y命令的用法是这样的：y/Source-chars/Dest-chars/，分割字符/可以用任意单字符代替，用Dest-chars中对应位置的字符替换掉Soutce-chars中对应位置的字符</span><br><span class="line">s：替换字符串，通常s命令的用法是这样的：1,<span class="variable">$s</span>/Regexp/Replacement/Flags，分隔字符/可以用其他任意单字符代替，用Replacement替换掉匹配字符串</span><br></pre></td></tr></table></figure></li>
+<li><p>常用flag (配合命令使用)</p>
+  <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">g：将用Replacement替换模版空间中所有匹配Regexp的部分，则不仅仅是第一个匹配部分</span><br><span class="line">digit：只用Replacement替换模版空间中第digit(digit是<span class="number">1</span>至<span class="number">9</span>)个匹配Regexp的部分</span><br><span class="line">p：若发生了替换操作，指示显示模版空间中新的数据</span><br><span class="line">w <span class="keyword">file</span>-<span class="keyword">name</span>：若发生了替换操作，指示将模版空间中新的数据写入指定的文件<span class="keyword">file</span>-<span class="keyword">name</span>中</span><br><span class="line">i：表示进行Regexp匹配时，是不区分大小写字母的</span><br></pre></td></tr></table></figure></li>
+<li>内置符号/变量  <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">$: 表示文本末尾，或者说最后一行</span></span><br><span class="line"><span class="section">,: 表示范围，比如1,$表示从第一行到最后一行</span></span><br><span class="line"><span class="section">\: 用于分隔字符串，或者放在命令后面如a\, 或者用于匹配某个字符串</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
-<li>按照指定字符分割  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># statm</span></span><br><span class="line">1910012, 12019, 1592, 19537, 1, 17458, 1</span><br><span class="line">2910012, 22019, 2592, 29537, 2, 27458, 2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 逗号分割，取第1，2行</span></span><br><span class="line">awk -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;print $1, $2&#125;&#x27;</span> statm</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">1910012  12019</span><br><span class="line">2910012  22019</span><br></pre></td></tr></table></figure></li>
-<li>格式化输出 %-20s表示一共占20个whitespace长度  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式化输出</span></span><br><span class="line">awk -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;printf &quot;%-20s %-10s\n&quot;, $1, $2&#125;&#x27;</span> statm</span><br><span class="line">awk -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;print &quot;column1 : &quot; $1, &quot;column1 : &quot; $2&#125;&#x27;</span> statm</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">1910012               12019    </span><br><span class="line">2910012               22019</span><br><span class="line"></span><br><span class="line">column1 : 1910012 column1 :  12019</span><br><span class="line">column1 : 2910012 column1 :  22019</span><br></pre></td></tr></table></figure></li>
-<li>添加表头  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data.txt</span></span><br><span class="line">John       25    Developer</span><br><span class="line">Jane       30    Designer</span><br><span class="line">Alice      28    Manager</span><br><span class="line">Bob        22    Intern</span><br><span class="line"></span><br><span class="line">awk <span class="string">&#x27;BEGIN &#123; printf &quot;%-10s %-5s %-10s\n&quot;, &quot;Name&quot;, &quot;Age&quot;, &quot;Position&quot;; \</span></span><br><span class="line"><span class="string">    printf &quot;%-10s %-5s %-10s\n&quot;, &quot;----&quot;, &quot;---&quot;, &quot;--------&quot; &#125; \</span></span><br><span class="line"><span class="string">    &#123; printf &quot;%-10s %-5s %-10s\n&quot;, $1, $2, $3 &#125;&#x27;</span> \</span><br><span class="line">    data.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">Name       Age   Position  </span><br><span class="line">----       ---   --------  </span><br><span class="line">John       25    Developer </span><br><span class="line">Jane       30    Designer  </span><br><span class="line">Alice      28    Manager   </span><br><span class="line">Bob        22    Intern</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h3><ul>
-<li>计算第1列的总和  <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">awk</span> -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;sum += <span class="variable">$1</span>&#125; END &#123;print sum&#125;&#x27;</span> statm</span><br></pre></td></tr></table></figure></li>
-<li>计算最大值  <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F&#x27;,<span class="string">&#x27; &#x27;</span><span class="built_in">max</span> &lt; $<span class="number">1</span> &#123;<span class="built_in">max</span> = $<span class="number">1</span>&#125; END &#123;print <span class="built_in">max</span>&#125;&#x27; statm</span><br></pre></td></tr></table></figure>
-<h3 id="awk脚本"><a href="#awk脚本" class="headerlink" title="awk脚本"></a>awk脚本</h3></li>
-<li>BEGIN END<ul>
-<li>BEGIN{ 这里面放的是执行前的语句 }</li>
-<li>END {这里面放的是处理完所有的行后要执行的语句 }</li>
-<li>{这里面放的是处理每一行时要执行的语句}</li>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>a\命令<ul>
+<li>sed ‘1,$a\add one’ test.txt 从第一行到最后一行所有行后追加”add one”字符串行</li>
+<li>sed ‘/Linux/a\add one’ test.txt 在匹配到Linux行追加”add one”字符串行</li>
 </ul>
 </li>
-<li>awk -f cal.awk score.txt</li>
-<li>本质上上面的语句其实就是省略了BEGIN END，对每一行都执行了{}内的语句  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># store.txt</span></span><br><span class="line">Marry   2143 78 84 77</span><br><span class="line">Jack    2321 66 78 45</span><br><span class="line">Tom     2122 48 77 71</span><br><span class="line">Mike    2537 87 97 95</span><br><span class="line">Bob     2415 40 57 62</span><br><span class="line"></span><br><span class="line"><span class="comment"># cal.awk 脚本</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/awk -f</span></span><br><span class="line"><span class="comment">#运行前</span></span><br><span class="line">BEGIN &#123;</span><br><span class="line">    math = 0</span><br><span class="line">    english = 0</span><br><span class="line">    computer = 0</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&quot;NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL\n&quot;</span></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&quot;---------------------------------------------\n&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#运行中</span></span><br><span class="line">&#123;</span><br><span class="line">    math+=<span class="variable">$3</span></span><br><span class="line">    english+=<span class="variable">$4</span></span><br><span class="line">    computer+=<span class="variable">$5</span></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&quot;%-6s %-6s %4d %8d %8d %8d\n&quot;</span>, <span class="variable">$1</span>, <span class="variable">$2</span>, <span class="variable">$3</span>,<span class="variable">$4</span>,<span class="variable">$5</span>, <span class="variable">$3</span>+<span class="variable">$4</span>+<span class="variable">$5</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#运行后</span></span><br><span class="line">END &#123;</span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&quot;---------------------------------------------\n&quot;</span></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&quot;  TOTAL:%10d %8d %8d \n&quot;</span>, math, english, computer</span><br><span class="line">    <span class="built_in">printf</span> <span class="string">&quot;AVERAGE:%10.2f %8.2f %8.2f\n&quot;</span>, math/NR, english/NR, computer/NR</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL</span><br><span class="line">---------------------------------------------</span><br><span class="line">Marry  2143     78       84       77      239</span><br><span class="line">Jack   2321     66       78       45      189</span><br><span class="line">Tom    2122     48       77       71      196</span><br><span class="line">Mike   2537     87       97       95      279</span><br><span class="line">Bob    2415     40       57       62      159</span><br><span class="line">---------------------------------------------</span><br><span class="line">TOTAL:       319      393      350</span><br><span class="line">AVERAGE:     63.80    78.60    70.00</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>i\命令<ul>
+<li>sed ‘1,$i\add one’ test.txt 从第一行到最后一行所有行前面追加”add one”字符串行</li>
+<li>sed ‘/Linux/i\add one’ test.txt 在匹配到Linux行前面追加”add one”字符串行</li>
 </ul>
+</li>
+</ul>
+<p>TODO……</p>
 
     </div>
 
@@ -308,7 +296,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2024/07/18/awk/" title="Linux awk 使用方法">http://example.com/2024/07/18/awk/</a>
+    <a href="http://example.com/2024/07/19/sed/" title="Linux sed">http://example.com/2024/07/19/sed/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -329,13 +317,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/07/16/hexo-introduction/" rel="prev" title="hexo-tutorial">
-      <i class="fa fa-chevron-left"></i> hexo-tutorial
+    <a href="/2024/07/18/awk/" rel="prev" title="Linux awk 使用方法">
+      <i class="fa fa-chevron-left"></i> Linux awk 使用方法
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/07/19/sed/" rel="next" title="Linux sed">
-      Linux sed <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -394,7 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AWK-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">AWK 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97"><span class="nav-number">3.2.</span> <span class="nav-text">计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk%E8%84%9A%E6%9C%AC"><span class="nav-number">3.3.</span> <span class="nav-text">awk脚本</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sed-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">Sed 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">命令</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
