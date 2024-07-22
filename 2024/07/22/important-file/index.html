@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="简介 Linux上设计了许多文件专门用于系统、用户配置，或者存放重要的数据。本文以模块的形式统计各类重要和常用的文件，并记录它们的作用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 重要文件功能统计">
+<meta property="og:url" content="http://example.com/2024/07/22/important-file/index.html">
+<meta property="og:site_name" content="Czhappy&#39;s Blog">
+<meta property="og:description" content="简介 Linux上设计了许多文件专门用于系统、用户配置，或者存放重要的数据。本文以模块的形式统计各类重要和常用的文件，并记录它们的作用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-22T10:44:15.000Z">
+<meta property="article:modified_time" content="2024-07-22T11:45:40.747Z">
+<meta property="article:author" content="czhappy">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="File">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/07/22/important-file/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux 重要文件功能统计 | Czhappy's Blog</title>
+  
+
+
+  <script data-pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96def23e2b1b6bb5881bb05dfe7f920e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Czhappy's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/22/important-file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="czhappy">
+      <meta itemprop="description" content="Record & Share.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Czhappy's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 重要文件功能统计
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-07-22 18:44:15 / 修改时间：19:45:40" itemprop="dateCreated datePublished" datetime="2024-07-22T18:44:15+08:00">2024-07-22</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>Linux上设计了许多文件专门用于系统、用户配置，或者存放重要的数据。本文以模块的形式统计各类重要和常用的文件，并记录它们的作用。<span id="more"></span>
+<h2 id="etc"><a href="#etc" class="headerlink" title="/etc"></a>/etc</h2><h3 id="etc-host"><a href="#etc-host" class="headerlink" title="/etc/host"></a>/etc/host</h3></li>
+<li><p>/etc/hosts 文件是一个计算机系统中的一个本地主机名解析文件。它通常被用于在计算机上手动指定 IP 地址和主机名的映射关系。当在计算机上访问一个网站时，计算机通常需要将主机名（如 www.example.com）转换为一个 IP 地址，以便能够与该网站建立连接。这通常通过DNS进行，但是在某些情况下，可能需要手动指定这些映射关系，以避免需要使用 DNS 进行解析，或者为了将某个主机名指向一个特定的 IP 地址。</p>
+</li>
+<li><p>在Linux和其他类Unix操作系统上，/etc/hosts 文件被用于这个目的。例如，可以在该文件中添加一行 127.0.0.1 localhost，以指定 localhost 主机名解析到本地回环地址 127.0.0.1。这样，在浏览器中输入 <a target="_blank" rel="noopener" href="http://localhost">http://localhost</a> 时，计算机会自动将其解析为 127.0.0.1，从而连接到本地主机。</p>
+</li>
+</ul>
+<h3 id="etc-resolv-conf"><a href="#etc-resolv-conf" class="headerlink" title="/etc/resolv.conf"></a>/etc/resolv.conf</h3><ul>
+<li>/etc/resolv.conf是DNS客户机的配置文件，用于设置DNS服务器的IP地址及DNS域名，还包含了主机的域名搜索顺序。</li>
+<li>关键字主要有4个，分别为：<ul>
+<li>nameserver：定义DNS服务器的IP地址。可以有很多行的nameserver，每一个带一个IP地址。在查询时就按nameserver在本文件中的顺序进行，且只有当第一个nameserver没有反应时才查询下面的nameserver。</li>
+<li>domain：定义本地域名</li>
+<li>search：定义域名的搜索列表</li>
+<li>sortlist：对返回的域名进行排序</li>
+</ul>
+</li>
+<li>先查看它是否是一个软链接，如果是的话修改其内容可以将其删掉重新创建一个同名文件然后再写入内容。</li>
+</ul>
+<h2 id="proc-pid"><a href="#proc-pid" class="headerlink" title="/proc/pid"></a>/proc/pid</h2><h3 id="proc-pid-statm"><a href="#proc-pid-statm" class="headerlink" title="proc/pid/statm"></a>proc/pid/statm</h3><ul>
+<li>/proc/[pid]/statm显示进程所占用内存大小的统计信息，包含七个值，度量单位是page（page大小可通过getconf PAGESIZE得到，一般是4KB）<ul>
+<li>size:任务虚拟地址空间大小</li>
+<li>Resident：正在使用的物理内存大小</li>
+<li>Shared：共享页数</li>
+<li>Trs：程序所拥有的可执行虚拟内存大小</li>
+<li>Lrs：被映像倒任务的虚拟内存空间的库的大小</li>
+<li>Drs：程序数据段和用户态的栈的大小</li>
+<li>dt：脏页数量<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">cat</span> /proc/<span class="number">11037</span>/statm</span><br><span class="line"><span class="attribute">830269</span> <span class="number">44167</span> <span class="number">15154</span> <span class="number">109</span> <span class="number">0</span> <span class="number">63990</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="proc-pid-status"><a href="#proc-pid-status" class="headerlink" title="proc/pid/status"></a>proc/pid/status</h3><ul>
+<li>/proc/[pid]/status包含进程的状态信息。其很多内容与/proc/[pid]/stat和/proc/[pid]/statm，但是却是以一种更清晰地方式展现出来。  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/11037/status</span><br><span class="line">Name:	system_metrics_</span><br><span class="line">Umask:	0002</span><br><span class="line">State:	S (sleeping)</span><br><span class="line">Tgid:	11037</span><br><span class="line">Ngid:	0</span><br><span class="line">Pid:	11037</span><br><span class="line">PPid:	16452</span><br><span class="line">TracerPid:	0</span><br><span class="line">Uid:	1000	1000	1000	1000</span><br><span class="line">Gid:	1000	1000	1000	1000</span><br><span class="line">FDSize:	1024</span><br><span class="line">Groups:	4 20 24 25 27 29 30 44 46 1000 1010 1012 </span><br><span class="line">NStgid:	11037</span><br><span class="line">NSpid:	11037</span><br><span class="line">NSpgid:	11037</span><br><span class="line">NSsid:	11037</span><br><span class="line">VmPeak:	 3378396 kB</span><br><span class="line">VmSize:	 3321076 kB</span><br><span class="line">VmLck:	       0 kB</span><br><span class="line">VmPin:	       0 kB</span><br><span class="line">VmHWM:	  176668 kB</span><br><span class="line">VmRSS:	  176668 kB</span><br><span class="line">RssAnon:	  116052 kB</span><br><span class="line">RssFile:	   59804 kB</span><br><span class="line">RssShmem:	     812 kB</span><br><span class="line">VmData:	  255840 kB</span><br><span class="line">VmStk:	     140 kB</span><br><span class="line">VmExe:	     436 kB</span><br><span class="line">VmLib:	  110080 kB</span><br><span class="line">VmPTE:	     568 kB</span><br><span class="line">VmPMD:	      24 kB</span><br><span class="line">VmSwap:	       0 kB</span><br><span class="line">HugetlbPages:	       0 kB</span><br><span class="line">Threads:	16</span><br><span class="line">SigQ:	0/111198</span><br><span class="line">SigPnd:	0000000000000000</span><br><span class="line">ShdPnd:	0000000000000000</span><br><span class="line">SigBlk:	0000000000000000</span><br><span class="line">SigIgn:	0000000000001000</span><br><span class="line">SigCgt:	00000001c18044fe</span><br><span class="line">CapInh:	0000000000000000</span><br><span class="line">CapPrm:	0000000000000000</span><br><span class="line">CapEff:	0000000000000000</span><br><span class="line">CapBnd:	0000003fffffffff</span><br><span class="line">CapAmb:	0000000000000000</span><br><span class="line">NoNewPrivs:	0</span><br><span class="line">Seccomp:	0</span><br><span class="line">Speculation_Store_Bypass:	unknown</span><br><span class="line">Cpus_allowed:	7f</span><br><span class="line">Cpus_allowed_list:	0-6</span><br><span class="line">Mems_allowed:	1</span><br><span class="line">Mems_allowed_list:	0</span><br><span class="line">voluntary_ctxt_switches:	13705</span><br><span class="line">nonvoluntary_ctxt_switches:	483</span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-cmdline"><a href="#proc-pid-cmdline" class="headerlink" title="proc/pid/cmdline"></a>proc/pid/cmdline</h3></li>
+<li>/proc/[pid]/cmdline是一个只读文件，包含进程的完整命令行信息。  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ps -ef | grep 2948</span></span><br><span class="line">root       2948      1  0 Nov05 ?        00:00:04 /usr/sbin/libvirtd --listen</span><br><span class="line"></span><br><span class="line"><span class="comment"># cat /proc/2948/cmdline</span></span><br><span class="line">/usr/sbin/libvirtd--listen</span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-comm"><a href="#proc-pid-comm" class="headerlink" title="proc/pid/comm"></a>proc/pid/comm</h3></li>
+<li>/proc/[pid]/comm包含进程的命令名。  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/11037/comm</span><br><span class="line">system_metrics_</span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-cwd"><a href="#proc-pid-cwd" class="headerlink" title="proc/pid/cwd"></a>proc/pid/cwd</h3></li>
+<li>/proc/[pid]/cwd是进程当前工作目录的符号链接。<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ls</span> -lat /proc/<span class="number">11037</span>/cwd</span><br><span class="line"><span class="attribute">lrwxrwxrwx</span> <span class="number">1</span> plusai plusai <span class="number">0</span> Jul <span class="number">22</span> <span class="number">11</span>:<span class="number">04</span> /proc/<span class="number">11037</span>/cwd -&gt; /home/plusai</span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-environ"><a href="#proc-pid-environ" class="headerlink" title="proc/pid/environ"></a>proc/pid/environ</h3></li>
+<li>/proc/[pid]/environ显示进程的环境变量。  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># strings /proc/2948/environ</span></span><br><span class="line">LANG=POSIX</span><br><span class="line">LC_CTYPE=en_US.UTF-8</span><br><span class="line">PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br><span class="line">NOTIFY_SOCKET=@/org/freedesktop/systemd1/notify</span><br><span class="line">LIBVIRTD_CONFIG=/etc/libvirt/libvirtd.conf</span><br><span class="line">LIBVIRTD_ARGS=--listen</span><br><span class="line">LIBVIRTD_NOFILES_LIMIT=2048</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="proc-pid-exe"><a href="#proc-pid-exe" class="headerlink" title="proc/pid/exe"></a>proc/pid/exe</h3><ul>
+<li>/proc/[pid]/exe为实际运行程序的符号链接  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lat /proc/11037/exe</span><br><span class="line">lrwxrwxrwx 1 plusai plusai 0 Jul 22 11:03 /proc/11037/exe -&gt; /data/chengzhen/plusai/bin/system_metrics_collector</span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-fd"><a href="#proc-pid-fd" class="headerlink" title="proc/pid/fd"></a>proc/pid/fd</h3></li>
+<li>/proc/[pid]/fd是一个目录,包含进程打开文件的情况  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la /proc/11037/fd | <span class="built_in">head</span> -n 10</span><br><span class="line">total 0</span><br><span class="line">dr-x------ 2 plusai plusai  0 Jul 22 11:03 .</span><br><span class="line">dr-xr-xr-x 9 plusai plusai  0 Jul 22 11:03 ..</span><br><span class="line">lr-x------ 1 plusai plusai 64 Jul 22 11:03 0 -&gt; /dev/null</span><br><span class="line">l-wx------ 1 plusai plusai 64 Jul 22 11:03 10 -&gt; /tmp/system_metrics_collector.2024_07_22.11-03-32.11037.<span class="built_in">log</span></span><br><span class="line">lr-x------ 1 plusai plusai 64 Jul 22 11:03 100 -&gt; /proc/45/statm</span><br><span class="line">lr-x------ 1 plusai plusai 64 Jul 22 11:03 101 -&gt; /proc/46/stat</span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-limits"><a href="#proc-pid-limits" class="headerlink" title="proc/pid/limits"></a>proc/pid/limits</h3></li>
+<li>/proc/[pid]/limits显示当前进程的资源限制  <figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">cat /<span class="keyword">proc</span>/11037/limits<span class="title"></span></span><br><span class="line"><span class="title"></span></span><br><span class="line"><span class="title">Limit</span> <span class="title">                    Soft</span> Limit<span class="title">           Hard</span> Limit<span class="title">           Units</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> cpu<span class="title"> time</span> <span class="title">             unlimited</span> <span class="title">           unlimited</span> <span class="title">           seconds</span> <span class="title">  </span></span><br><span class="line"><span class="title">Max</span> file<span class="title"> size</span> <span class="title">            unlimited</span> <span class="title">           unlimited</span> <span class="title">           bytes</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> data<span class="title"> size</span> <span class="title">            unlimited</span> <span class="title">           unlimited</span> <span class="title">           bytes</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> stack<span class="title"> size</span>            8388608<span class="title">              unlimited</span> <span class="title">           bytes</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> core<span class="title"> file</span> size        10737418240<span class="title">          unlimited</span> <span class="title">           bytes</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> resident<span class="title"> set</span> <span class="title">         unlimited</span> <span class="title">           unlimited</span> <span class="title">           bytes</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> processes             111198               111198<span class="title">               processes</span> <span class="title"></span></span><br><span class="line"><span class="title">Max</span> open<span class="title"> files</span>            4096                 4096<span class="title">                 files</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> locked<span class="title"> memory</span>         67108864             67108864<span class="title">             bytes</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> address<span class="title"> space</span> <span class="title">        unlimited</span> <span class="title">           unlimited</span> <span class="title">           bytes</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> file<span class="title"> locks</span> <span class="title">           unlimited</span> <span class="title">           unlimited</span> <span class="title">           locks</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> pending<span class="title"> signals</span>       111198               111198<span class="title">               signals</span> <span class="title">  </span></span><br><span class="line"><span class="title">Max</span> msgqueue<span class="title"> size</span>         819200               819200<span class="title">               bytes</span> <span class="title">    </span></span><br><span class="line"><span class="title">Max</span> nice<span class="title"> priority</span>         0                    0<span class="title">                    </span></span><br><span class="line"><span class="title">Max</span> realtime<span class="title"> priority</span>     99                   99<span class="title">                   </span></span><br><span class="line"><span class="title">Max</span> realtime<span class="title"> timeout</span> <span class="title">     unlimited</span> <span class="title">           unlimited</span> <span class="title">           us</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="proc-pid-maps"><a href="#proc-pid-maps" class="headerlink" title="proc/pid/maps"></a>proc/pid/maps</h3><ul>
+<li>/proc/[pid]/maps显示进程的内存区域映射信息。  <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">7fa7307000</span>-<span class="number">7</span>fa7587000 r-xp <span class="number">00000000</span> fd:<span class="number">30</span> <span class="number">1316174</span>                        /data/chengzhen/plusai/external/opt/lib/libprotobuf.so.<span class="number">17</span>.<span class="number">0</span>.<span class="number">0</span></span><br><span class="line"><span class="attribute">7fa7587000</span>-<span class="number">7</span>fa7597000 ---p <span class="number">00280000</span> fd:<span class="number">30</span> <span class="number">1316174</span>                        /data/chengzhen/plusai/external/opt/lib/libprotobuf.so.<span class="number">17</span>.<span class="number">0</span>.<span class="number">0</span></span><br><span class="line"><span class="attribute">7fa7597000</span>-<span class="number">7</span>fa75a0000 r--p <span class="number">00280000</span> fd:<span class="number">30</span> <span class="number">1316174</span>                        /data/chengzhen/plusai/external/opt/lib/libprotobuf.so.<span class="number">17</span>.<span class="number">0</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-root"><a href="#proc-pid-root" class="headerlink" title="proc/pid/root"></a>proc/pid/root</h3></li>
+<li>/proc/[pid]/root是进程根目录的符号链接  <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ls</span> -lat /proc/<span class="number">11037</span>/root</span><br><span class="line"><span class="attribute">lrwxrwxrwx</span> <span class="number">1</span> plusai plusai <span class="number">0</span> Jul <span class="number">22</span> <span class="number">11</span>:<span class="number">04</span> /proc/<span class="number">11037</span>/root -&gt; /</span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-stack"><a href="#proc-pid-stack" class="headerlink" title="proc/pid/stack"></a>proc/pid/stack</h3></li>
+<li>/proc/[pid]/stack显示当前进程的内核调用栈信息，只有内核编译时打开了CONFIG_STACKTRACE编译选项，才会生成这个文件。  <figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo cat <span class="operator">/</span>proc<span class="operator">/</span><span class="number">11037</span><span class="operator">/</span>stack</span><br><span class="line"><span class="meta">[&lt;ffffff8008086f08&gt;]</span> __switch_to<span class="operator">+</span><span class="number">0xf0</span><span class="operator">/</span><span class="number">0x120</span></span><br><span class="line"><span class="meta">[&lt;ffffff800813ddec&gt;]</span> hrtimer_nanosleep<span class="operator">+</span><span class="number">0xbc</span><span class="operator">/</span><span class="number">0x148</span></span><br><span class="line"><span class="meta">[&lt;ffffff800813defc&gt;]</span> SyS_nanosleep<span class="operator">+</span><span class="number">0x84</span><span class="operator">/</span><span class="number">0xc0</span></span><br><span class="line"><span class="meta">[&lt;ffffff8008084180&gt;]</span> el0_svc_naked<span class="operator">+</span><span class="number">0x34</span><span class="operator">/</span><span class="number">0x38</span></span><br><span class="line"><span class="meta">[&lt;ffffffffffffffff&gt;]</span> <span class="number">0xffffffffffffffff</span></span><br></pre></td></tr></table></figure>
+<h3 id="proc-pid-1"><a href="#proc-pid-1" class="headerlink" title="/proc/pid/"></a>/proc/pid/</h3></li>
+<li>/proc/[pid]/syscall显示当前进程正在执行的系统调用。<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">cat</span> /proc/<span class="number">11037</span>/syscall</span><br><span class="line"><span class="attribute">101</span> <span class="number">0</span>x7ff1397110 <span class="number">0</span>x7ff1397110 <span class="number">0</span>x0 <span class="number">0</span>x7fa10a8700 <span class="number">0</span>xffffffbb <span class="number">0</span>x7fa10a7f00 <span class="number">0</span>x7ff13970b0 <span class="number">0</span>x7fa72d8600</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="ssh"><a href="#ssh" class="headerlink" title="~/.ssh"></a>~/.ssh</h2><h3 id="ssh-id-rsa"><a href="#ssh-id-rsa" class="headerlink" title="~/.ssh/id_rsa"></a>~/.ssh/id_rsa</h3><ul>
+<li>用rsa算法生成的ssh key  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -al ~/.ssh 检查密钥是否存在</span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;271xxxxxx@qq.com&quot;</span> 生成密钥对，包括私钥 公钥 密码可以输入也可以不输入</span><br><span class="line"><span class="built_in">eval</span> $(ssh-agent -s) 首先确保ssh-agent正常工作</span><br><span class="line">ssh-add ~/.ssh/id_rsa 直接将私钥id_rsa添加到ssh代理中，跟windows不同的是不需要修改后缀为.ppk</span><br><span class="line">vim /root/.ssh/id_rsa.pub 打开公钥文件复制全文将公钥id_rsa.pub添加到你的github或者gitlab等仓库中</span><br><span class="line">登录仓库，用户setting -&gt; SSH key 将公钥粘贴进去，起个容易识别的名字 title</span><br></pre></td></tr></table></figure>
+<h3 id="ssh-config"><a href="#ssh-config" class="headerlink" title="~/.ssh/config"></a>~/.ssh/config</h3></li>
+<li>避免登录主机时输入口令，直接使用秘钥进行验证<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Host ADU184</span><br><span class="line">  HostName 192.168.10.184</span><br><span class="line">  User plusai</span><br><span class="line">Host github-cn.plus.ai</span><br><span class="line">  HostName github-cn.plus.ai</span><br><span class="line">  User chengzhen</span><br><span class="line">  IdentityFile ~/.ssh/id_ed25519</span><br><span class="line">Host github.com</span><br><span class="line">  HostName github.com</span><br><span class="line">  User czHappy</span><br><span class="line">  IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Host sz1</span><br><span class="line">  HostName sz1</span><br><span class="line">  User plusai</span><br><span class="line">  IdentityFile /home/plusai/.ssh/id_ed25519.pub</span><br><span class="line">Host book</span><br><span class="line">  User plusai</span><br><span class="line">  HostName 192.168.2.234</span><br><span class="line">  PreferredAuthentications publickey</span><br><span class="line">  IdentityFile /home/plusai/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+<h3 id="ssh-authorized-keys"><a href="#ssh-authorized-keys" class="headerlink" title="~/.ssh/authorized_keys"></a>~/.ssh/authorized_keys</h3></li>
+<li>用于存储允许通过 SSH 密钥认证连接到服务器的公钥。这些公钥用于验证客户端的 SSH 密钥，从而允许免密码登录。<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将my_custom_id_rsa.pub存放到远程服务器的authorized_keys</span></span><br><span class="line">ssh-<span class="keyword">copy</span><span class="language-bash">-<span class="built_in">id</span> -i ~/.ssh/my_custom_id_rsa.pub user@remote_host</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="docker"><a href="#docker" class="headerlink" title="~/.docker"></a>~/.docker</h2><h3 id="docker-config-json"><a href="#docker-config-json" class="headerlink" title="~/.docker/config.json"></a>~/.docker/config.json</h3><ul>
+<li>常见错误 no basic auth credential</li>
+<li>docker pull docker.plusai.co:5050/plusai/selective_data_monitor:209<ul>
+<li>Error response from daemon: Head “<a target="_blank" rel="noopener" href="https://docker.plusai.co:5050/v2/plusai/selective_data_monitor/manifests/209">https://docker.plusai.co:5050/v2/plusai/selective_data_monitor/manifests/209</a>“: no basic auth credentials</li>
+</ul>
+</li>
+<li><p>docker login 命令用于登陆到一个 Docker 镜像仓库，如果未指定镜像仓库地址，默认为官方仓库 Docker Hub</p>
+<ul>
+<li>docker login -u username -p password server_name</li>
+<li><p>Docker 会将 token 存储在 ~/.docker/config.json 文件中，从而作为拉取私有镜像的凭证。（也可以之直接将别人的config.json内容复制到自己的当中）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;auths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;docker.plusai.co:5050&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;auth&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c3otZG9ja2VyOkFhMTIzNDU2&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dist:5000&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;auth&quot;</span><span class="punctuation">:</span> <span class="string">&quot;amVua2luczo0aXVzb2U2dno1MXR3NmJ0&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dist-cn:5000&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;auth&quot;</span><span class="punctuation">:</span> <span class="string">&quot;amVua2luczo0aXVzb2U2dno1MXR3NmJ0&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;bj-docker.plusai.co:5050&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;auth&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c3otZG9ja2VyOkFhMTIzNDU2&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>czhappy
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2024/07/22/important-file/" title="Linux 重要文件功能统计">http://example.com/2024/07/22/important-file/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/File/" rel="tag"># File</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/22/zsh/" rel="prev" title="Linux Terminal Oh-My-Zsh美化一键配置">
+      <i class="fa fa-chevron-left"></i> Linux Terminal Oh-My-Zsh美化一键配置
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etc"><span class="nav-number">2.</span> <span class="nav-text">&#x2F;etc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-host"><span class="nav-number">2.1.</span> <span class="nav-text">&#x2F;etc&#x2F;host</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-resolv-conf"><span class="nav-number">2.2.</span> <span class="nav-text">&#x2F;etc&#x2F;resolv.conf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proc-pid"><span class="nav-number">3.</span> <span class="nav-text">&#x2F;proc&#x2F;pid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-statm"><span class="nav-number">3.1.</span> <span class="nav-text">proc&#x2F;pid&#x2F;statm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-status"><span class="nav-number">3.2.</span> <span class="nav-text">proc&#x2F;pid&#x2F;status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-cmdline"><span class="nav-number">3.3.</span> <span class="nav-text">proc&#x2F;pid&#x2F;cmdline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-comm"><span class="nav-number">3.4.</span> <span class="nav-text">proc&#x2F;pid&#x2F;comm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-cwd"><span class="nav-number">3.5.</span> <span class="nav-text">proc&#x2F;pid&#x2F;cwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-environ"><span class="nav-number">3.6.</span> <span class="nav-text">proc&#x2F;pid&#x2F;environ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-exe"><span class="nav-number">3.7.</span> <span class="nav-text">proc&#x2F;pid&#x2F;exe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-fd"><span class="nav-number">3.8.</span> <span class="nav-text">proc&#x2F;pid&#x2F;fd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-limits"><span class="nav-number">3.9.</span> <span class="nav-text">proc&#x2F;pid&#x2F;limits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-maps"><span class="nav-number">3.10.</span> <span class="nav-text">proc&#x2F;pid&#x2F;maps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-root"><span class="nav-number">3.11.</span> <span class="nav-text">proc&#x2F;pid&#x2F;root</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-stack"><span class="nav-number">3.12.</span> <span class="nav-text">proc&#x2F;pid&#x2F;stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-pid-1"><span class="nav-number">3.13.</span> <span class="nav-text">&#x2F;proc&#x2F;pid&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh"><span class="nav-number">4.</span> <span class="nav-text">~&#x2F;.ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-id-rsa"><span class="nav-number">4.1.</span> <span class="nav-text">~&#x2F;.ssh&#x2F;id_rsa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-config"><span class="nav-number">4.2.</span> <span class="nav-text">~&#x2F;.ssh&#x2F;config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-authorized-keys"><span class="nav-number">4.3.</span> <span class="nav-text">~&#x2F;.ssh&#x2F;authorized_keys</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">5.</span> <span class="nav-text">~&#x2F;.docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-config-json"><span class="nav-number">5.1.</span> <span class="nav-text">~&#x2F;.docker&#x2F;config.json</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="czhappy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">czhappy</p>
+  <div class="site-description" itemprop="description">Record & Share.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/czHappy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;czHappy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chengzhen666666@gmail.com" title="E-Mail → mailto:chengzhen666666@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">czhappy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">26 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
