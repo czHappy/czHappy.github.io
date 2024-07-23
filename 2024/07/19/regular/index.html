@@ -233,7 +233,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -253,11 +253,9 @@
 
       
         <h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><ul>
-<li>正则表达式(Regular Expression)是一种用于模式匹配和搜索文本的工具。正则表达式提供了一种灵活且强大的方式来查找、替换、验证和提取文本数据。正则表达式可以应用于各种编程语言和文本处理工具中，如C++, JavaScript, Python, sed等。<span id="more"></span>
-</li>
+<li>正则表达式(Regular Expression)是一种用于模式匹配和搜索文本的工具。正则表达式提供了一种灵活且强大的方式来查找、替换、验证和提取文本数据。正则表达式可以应用于各种编程语言和文本处理工具中，如C++, JavaScript, Python, sed等。<span id="more"></span></li>
 </ul>
-<h2 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h2><h3 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h3><div class="table-container">
-<table>
+<h2 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h2><h3 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h3><table>
 <thead>
 <tr>
 <th>表达式</th>
@@ -265,8 +263,7 @@
 <th>备注</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>.</code></td>
 <td>除换行符以外的所有字符</td>
 <td>在[]中是.本意</td>
@@ -324,11 +321,12 @@
 <tr>
 <td><code>\S</code></td>
 <td>\S 非空白符，不包括换行。</td>
+<td></td>
 </tr>
 <tr>
 <td><code>[ ]</code></td>
 <td>匹配括号内的任意一个字符。</td>
-<td><sup><a href="#fn_ " id="reffn_ "> </a></sup>：匹配除了括号内的字符以外的任意一个字符。</td>
+<td>[^ ]：匹配除了括号内的字符以外的任意一个字符。</td>
 </tr>
 <tr>
 <td><code>[abc]</code></td>
@@ -344,7 +342,6 @@
 <td><code>[^abc]</code></td>
 <td>匹配除了 a、b 或 c 中的其他字母</td>
 <td></td>
-<td>\</td>
 </tr>
 <tr>
 <td>I</td>
@@ -381,24 +378,21 @@
 <td>最少 m 次，最多 n 次匹配</td>
 <td>量词</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><ul>
-<li>command： /regular express/[gims]</li>
+<li>command： &#x2F;regular express&#x2F;[gims]</li>
 <li>i: 将匹配设置为不区分大小写</li>
 <li>g: 查找全局所有的匹配项。</li>
-<li>m: 多行匹配，对于str = runoobgoogle\ntaobao\nrunoobweibo<ul>
-<li>/^runoob/gm 输出第1，3行</li>
-<li>/^runoob/g 输出第1行</li>
+<li>m: 多行匹配，对于str &#x3D; runoobgoogle\ntaobao\nrunoobweibo<ul>
+<li>&#x2F;^runoob&#x2F;gm 输出第1，3行</li>
+<li>&#x2F;^runoob&#x2F;g 输出第1行</li>
 </ul>
 </li>
 <li>s: .匹配所有字符，包括\n</li>
 </ul>
 <h3 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h3><ul>
 <li>贪婪匹配： 正则表达式去匹配时，会尽量多的匹配符合模式串的内容</li>
-<li>非贪婪匹配： 正则表达式去匹配时，会尽量少的匹配符合模式串的内容<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 测试串： aacbacbc</span><br><span class="line"># 非贪婪匹配： <span class="selector-tag">a</span>.*?<span class="selector-tag">b</span> 匹配aacb</span><br><span class="line"># 贪婪匹配： <span class="selector-tag">a</span>.*<span class="selector-tag">b</span> 匹配aacbacb</span><br></pre></td></tr></table></figure>
-</li>
+<li>非贪婪匹配： 正则表达式去匹配时，会尽量少的匹配符合模式串的内容<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 测试串： aacbacbc</span><br><span class="line"># 非贪婪匹配： <span class="selector-tag">a</span>.*?<span class="selector-tag">b</span> 匹配aacb</span><br><span class="line"># 贪婪匹配： <span class="selector-tag">a</span>.*<span class="selector-tag">b</span> 匹配aacbacb</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="邮箱地址"><a href="#邮箱地址" class="headerlink" title="邮箱地址"></a>邮箱地址</h3><p><code>/\b[\w.%+-]+@[\w.-]+\.[a-zA-Z]&#123;2,6&#125;\b/g</code></p>
 <ul>
@@ -409,7 +403,7 @@
 <li>\. : 匹配点字符 .，这是域名部分和顶级域名部分的分隔符。</li>
 <li>[a-zA-Z]{2,6}：匹配大小写字母2-6次</li>
 <li>\b： 单词边界，确保匹配的是一个完整的电子邮件地址。</li>
-<li>/g： 全局标志（global flag），表示在整个字符串中查找所有匹配项。</li>
+<li>&#x2F;g： 全局标志（global flag），表示在整个字符串中查找所有匹配项。</li>
 </ul>
 <h3 id="匹配所有img标签"><a href="#匹配所有img标签" class="headerlink" title="匹配所有img标签"></a>匹配所有img标签</h3><p><code>/&lt;img.*?src=&quot;(.*?)&quot;.*?\/?&gt;/gi</code></p>
 <h2 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h2><ul>
@@ -592,12 +586,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">42k</span>
+    <span title="站点总字数">43k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">38 分钟</span>
+    <span title="站点阅读时长">39 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

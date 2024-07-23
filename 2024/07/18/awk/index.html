@@ -32,8 +32,8 @@
 <meta property="article:published_time" content="2024-07-18T06:14:26.000Z">
 <meta property="article:modified_time" content="2024-07-18T06:48:32.524Z">
 <meta property="article:author" content="czhappy">
-<meta property="article:tag" content="tutorial">
 <meta property="article:tag" content="shell">
+<meta property="article:tag" content="tutorial">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://czhappy.github.io/2024/07/18/awk/">
@@ -256,6 +256,7 @@
 <li>awk 是一种处理文本文件的语言，是一个强大的文本分析工具。之所以叫 awk 是因为其取了三位创始人 Alfred Aho，Peter Weinberger, 和 Brian Kernighan 的 Family Name 的首字符。</li>
 </ul>
 <span id="more"></span>
+
 <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
 <li>awk options ‘pattern {action}’ file<ul>
 <li>options：是一些选项，用于控制 awk 的行为。</li>
@@ -264,8 +265,8 @@
 </ul>
 </li>
 <li>options<ul>
-<li>-F &lt;分隔符&gt; 或 —field-separator=&lt;分隔符&gt;： 指定输入字段的分隔符，默认是空格。使用这个选项可以指定不同于默认分隔符的字段分隔符。</li>
-<li>v &lt;变量名&gt;=&lt;值&gt;： 设置 awk 内部的变量值。可以使用该选项将外部值传递给 awk 脚本中的变量。</li>
+<li>-F &lt;分隔符&gt; 或 –field-separator&#x3D;&lt;分隔符&gt;： 指定输入字段的分隔符，默认是空格。使用这个选项可以指定不同于默认分隔符的字段分隔符。</li>
+<li>v &lt;变量名&gt;&#x3D;&lt;值&gt;： 设置 awk 内部的变量值。可以使用该选项将外部值传递给 awk 脚本中的变量。</li>
 <li>f &lt;脚本文件&gt;： 指定一个包含 awk 脚本的文件。这样可以在文件中编写较大的 awk 脚本，然后通过 -f 选项将其加载。</li>
 </ul>
 </li>
@@ -277,13 +278,13 @@
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
 <li>按照指定字符分割  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># statm</span></span><br><span class="line">1910012, 12019, 1592, 19537, 1, 17458, 1</span><br><span class="line">2910012, 22019, 2592, 29537, 2, 27458, 2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 逗号分割，取第1，2行</span></span><br><span class="line">awk -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;print $1, $2&#125;&#x27;</span> statm</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">1910012  12019</span><br><span class="line">2910012  22019</span><br></pre></td></tr></table></figure></li>
 <li>格式化输出 %-20s表示一共占20个whitespace长度  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式化输出</span></span><br><span class="line">awk -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;printf &quot;%-20s %-10s\n&quot;, $1, $2&#125;&#x27;</span> statm</span><br><span class="line">awk -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;print &quot;column1 : &quot; $1, &quot;column1 : &quot; $2&#125;&#x27;</span> statm</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">1910012               12019    </span><br><span class="line">2910012               22019</span><br><span class="line"></span><br><span class="line">column1 : 1910012 column1 :  12019</span><br><span class="line">column1 : 2910012 column1 :  22019</span><br></pre></td></tr></table></figure></li>
-<li>添加表头  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data.txt</span></span><br><span class="line">John       25    Developer</span><br><span class="line">Jane       30    Designer</span><br><span class="line">Alice      28    Manager</span><br><span class="line">Bob        22    Intern</span><br><span class="line"></span><br><span class="line">awk <span class="string">&#x27;BEGIN &#123; printf &quot;%-10s %-5s %-10s\n&quot;, &quot;Name&quot;, &quot;Age&quot;, &quot;Position&quot;; \</span></span><br><span class="line"><span class="string">    printf &quot;%-10s %-5s %-10s\n&quot;, &quot;----&quot;, &quot;---&quot;, &quot;--------&quot; &#125; \</span></span><br><span class="line"><span class="string">    &#123; printf &quot;%-10s %-5s %-10s\n&quot;, $1, $2, $3 &#125;&#x27;</span> \</span><br><span class="line">    data.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">Name       Age   Position  </span><br><span class="line">----       ---   --------  </span><br><span class="line">John       25    Developer </span><br><span class="line">Jane       30    Designer  </span><br><span class="line">Alice      28    Manager   </span><br><span class="line">Bob        22    Intern</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
+<li>添加表头  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data.txt</span></span><br><span class="line">John       25    Developer</span><br><span class="line">Jane       30    Designer</span><br><span class="line">Alice      28    Manager</span><br><span class="line">Bob        22    Intern</span><br><span class="line"></span><br><span class="line">awk <span class="string">&#x27;BEGIN &#123; printf &quot;%-10s %-5s %-10s\n&quot;, &quot;Name&quot;, &quot;Age&quot;, &quot;Position&quot;; \</span></span><br><span class="line"><span class="string">    printf &quot;%-10s %-5s %-10s\n&quot;, &quot;----&quot;, &quot;---&quot;, &quot;--------&quot; &#125; \</span></span><br><span class="line"><span class="string">    &#123; printf &quot;%-10s %-5s %-10s\n&quot;, $1, $2, $3 &#125;&#x27;</span> \</span><br><span class="line">    data.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># output</span></span><br><span class="line">Name       Age   Position  </span><br><span class="line">----       ---   --------  </span><br><span class="line">John       25    Developer </span><br><span class="line">Jane       30    Designer  </span><br><span class="line">Alice      28    Manager   </span><br><span class="line">Bob        22    Intern</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h3><ul>
 <li>计算第1列的总和  <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">awk</span> -F<span class="string">&#x27;,&#x27;</span> <span class="string">&#x27;&#123;sum += <span class="variable">$1</span>&#125; END &#123;print sum&#125;&#x27;</span> statm</span><br></pre></td></tr></table></figure></li>
-<li>计算最大值  <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F&#x27;,<span class="string">&#x27; &#x27;</span><span class="built_in">max</span> &lt; $<span class="number">1</span> &#123;<span class="built_in">max</span> = $<span class="number">1</span>&#125; END &#123;print <span class="built_in">max</span>&#125;&#x27; statm</span><br></pre></td></tr></table></figure>
-<h3 id="awk脚本"><a href="#awk脚本" class="headerlink" title="awk脚本"></a>awk脚本</h3></li>
+<li>计算最大值  <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F&#x27;,<span class="string">&#x27; &#x27;</span><span class="built_in">max</span> &lt; $<span class="number">1</span> &#123;<span class="built_in">max</span> = $<span class="number">1</span>&#125; END &#123;print <span class="built_in">max</span>&#125;&#x27; statm</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="awk脚本"><a href="#awk脚本" class="headerlink" title="awk脚本"></a>awk脚本</h3><ul>
 <li>BEGIN END<ul>
 <li>BEGIN{ 这里面放的是执行前的语句 }</li>
 <li>END {这里面放的是处理完所有的行后要执行的语句 }</li>
@@ -319,8 +320,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/tutorial/" rel="tag"># tutorial</a>
               <a href="/tags/shell/" rel="tag"># shell</a>
+              <a href="/tags/tutorial/" rel="tag"># tutorial</a>
           </div>
 
         
@@ -470,12 +471,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">42k</span>
+    <span title="站点总字数">43k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">38 分钟</span>
+    <span title="站点阅读时长">39 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

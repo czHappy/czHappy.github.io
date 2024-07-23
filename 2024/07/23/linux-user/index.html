@@ -224,14 +224,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -244,8 +244,7 @@
 
       
         <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
-<li>本文主要介绍 Linux 用户管理相关知识，包括用户，用户组，用户账号密码ID等。<span id="more"></span>
-</li>
+<li>本文主要介绍 Linux 用户管理相关知识，包括用户，用户组，用户账号密码ID等。<span id="more"></span></li>
 </ul>
 <h2 id="用户和用户组"><a href="#用户和用户组" class="headerlink" title="用户和用户组"></a>用户和用户组</h2><h3 id="Linux是多用户多任务操作系统"><a href="#Linux是多用户多任务操作系统" class="headerlink" title="Linux是多用户多任务操作系统"></a>Linux是多用户多任务操作系统</h3><ul>
 <li>Linux 是多用户多任务操作系统，换句话说，Linux 系统支持多个用户在同一时间内登陆，不同用户可以执行不同的任务，并且互不影响。</li>
@@ -262,15 +261,17 @@
 </li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">useradd lamp <span class="comment"># 添加新用户</span></span><br><span class="line">userdel -r lamp <span class="comment"># 删除用户并且删除家目录-r</span></span><br><span class="line">groupadd <span class="built_in">users</span>  <span class="comment"># 添加新群组users</span></span><br><span class="line">groupdel <span class="built_in">users</span> <span class="comment"># 删除群组users</span></span><br><span class="line">usermod -G <span class="built_in">users</span> lamp  <span class="comment"># 将用户lamp加入 users群组</span></span><br><span class="line">gpasswd -a lamp <span class="built_in">users</span> <span class="comment"># 将用户lamp加入 users群组</span></span><br><span class="line"><span class="built_in">id</span> lamp <span class="comment"># 查看用户的uid和gid</span></span><br><span class="line">su - root <span class="comment"># 切换到root用户，-表示切换环境变量</span></span><br><span class="line"><span class="built_in">whoami</span> <span class="comment"># 查看当前用户名</span></span><br></pre></td></tr></table></figure>
-<h2 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h2><h3 id="记录格式"><a href="#记录格式" class="headerlink" title="记录格式"></a>记录格式</h3><ul>
+
+<h2 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="&#x2F;etc&#x2F;passwd"></a>&#x2F;etc&#x2F;passwd</h2><h3 id="记录格式"><a href="#记录格式" class="headerlink" title="记录格式"></a>记录格式</h3><ul>
 <li>用户名：密码：UID（用户ID）：GID（组ID）：描述性信息：主目录：默认Shell</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span><br><span class="line">bin:x:2:2:bin:/bin:/usr/sbin/nologin</span><br><span class="line">sys:x:3:3:sys:/dev:/usr/sbin/nologin</span><br><span class="line">...</span><br><span class="line">zhaorunyuan:x:1005:1005:zhaorunyuan,,,:/home/zhaorunyuan:/bin/bash</span><br><span class="line">chengzhen:x:1006:1006:chengzhen,,,:/home/chengzhen:/bin/bash</span><br></pre></td></tr></table></figure>
+
 <h3 id="用户名"><a href="#用户名" class="headerlink" title="用户名"></a>用户名</h3><ul>
-<li>用户名仅是为了方便用户记忆，Linux 系统是通过 UID 来识别用户身份，分配用户权限的。/etc/passwd 文件中就定义了用户名和 UID 之间的对应关系。</li>
+<li>用户名仅是为了方便用户记忆，Linux 系统是通过 UID 来识别用户身份，分配用户权限的。&#x2F;etc&#x2F;passwd 文件中就定义了用户名和 UID 之间的对应关系。</li>
 </ul>
 <h3 id="密码"><a href="#密码" class="headerlink" title="密码"></a>密码</h3><ul>
-<li>“x” 表示此用户设有密码，但不是真正的密码，真正的密码保存在 /etc/shadow 文件中</li>
+<li>“x” 表示此用户设有密码，但不是真正的密码，真正的密码保存在 &#x2F;etc&#x2F;shadow 文件中</li>
 <li>虽然 “x” 并不表示真正的密码，但也不能删除，如果删除了 “x”，那么系统会认为这个用户没有密码，从而导致只输入用户名而不用输入密码就可以登陆（只能在使用无密码登录，远程是不可以的）</li>
 </ul>
 <h3 id="UID"><a href="#UID" class="headerlink" title="UID"></a>UID</h3><ul>
@@ -292,63 +293,67 @@
 <li>这个字段并没有什么重要的用途，只是用来解释这个用户的意义而已。</li>
 </ul>
 <h3 id="主目录"><a href="#主目录" class="headerlink" title="主目录"></a>主目录</h3><ul>
-<li>也就是用户登录后有操作权限的访问目录，通常称为用户的主目录。比如chengzhen用户的主目录是/home/chengzhen</li>
+<li>也就是用户登录后有操作权限的访问目录，通常称为用户的主目录。比如chengzhen用户的主目录是&#x2F;home&#x2F;chengzhen</li>
 </ul>
 <h3 id="默认shell"><a href="#默认shell" class="headerlink" title="默认shell"></a>默认shell</h3><ul>
 <li>Shell 就是 Linux 的命令解释器，是用户和 Linux 内核之间沟通的桥梁。</li>
-<li>Linux 系统默认使用的命令解释器是 bash（/bin/bash），当然还有其他命令解释器，例如 sh、csh 等。 /sbin/nologin 就是禁止登录的 Shell</li>
+<li>Linux 系统默认使用的命令解释器是 bash（&#x2F;bin&#x2F;bash），当然还有其他命令解释器，例如 sh、csh 等。 &#x2F;sbin&#x2F;nologin 就是禁止登录的 Shell</li>
 </ul>
-<h2 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>/etc/shadow 文件，用于存储 Linux 系统中用户的密码信息</li>
-<li>/etc/passwd 文件，由于该文件允许所有用户读取，易导致用户密码泄露，因此 Linux 系统将用户的密码信息从 /etc/passwd 文件中分离出来，并单独放到了此文件中，/etc/shadow 文件只有 root 用户拥有读权限。</li>
+<h2 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="&#x2F;etc&#x2F;shadow"></a>&#x2F;etc&#x2F;shadow</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>&#x2F;etc&#x2F;shadow 文件，用于存储 Linux 系统中用户的密码信息</li>
+<li>&#x2F;etc&#x2F;passwd 文件，由于该文件允许所有用户读取，易导致用户密码泄露，因此 Linux 系统将用户的密码信息从 &#x2F;etc&#x2F;passwd 文件中分离出来，并单独放到了此文件中，&#x2F;etc&#x2F;shadow 文件只有 root 用户拥有读权限。</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root:*:18375:0:99999:7:::</span><br><span class="line">daemon:*:18375:0:99999:7:::</span><br><span class="line">...</span><br><span class="line">chengzhen:$6<span class="variable">$ToAru8h</span>.86CMKCPq<span class="variable">$4NCndCpa81BWUfYKVeijMOZzT5hj2aqTpqaFsMLAWV2NTxrythmJ0453ItCNGwpYmrlhmV38z</span>/hR2Tz6uiERp/:19484:0:99999:7:::</span><br></pre></td></tr></table></figure>
+
 <h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><ul>
 <li>用户名：加密密码：最后一次修改时间：最小修改时间间隔：密码有效期：密码需要变更前的警告天数：密码过期后的宽限时间：账号失效时间：保留字段</li>
 <li>加密密码：这里保存的是真正加密的密码。目前 Linux 的密码采用的是 SHA512 散列加密算法，原来采用的是 MD5 或 DES 加密算法。SHA512 散列加密算法的加密等级更高，也更加安全。</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ chage -l chengzhen <span class="comment"># 查看用户密码状态</span></span><br><span class="line">Last password change                                    : May 07, 2023</span><br><span class="line">Password expires                                        : never</span><br><span class="line">Password inactive                                       : never</span><br><span class="line">Account expires                                         : never</span><br><span class="line">Minimum number of days between password change          : 0</span><br><span class="line">Maximum number of days between password change          : 99999</span><br><span class="line">Number of days of warning before password expires       : 7</span><br></pre></td></tr></table></figure>
+
 <h3 id="忘记密码的解决办法"><a href="#忘记密码的解决办法" class="headerlink" title="忘记密码的解决办法"></a>忘记密码的解决办法</h3><ul>
 <li>修改密码：输入passwd即可修改密码</li>
 <li>忘记密码：sudo passwd username，直接重置密码</li>
 </ul>
-<h2 id="etc-group"><a href="#etc-group" class="headerlink" title="/etc/group"></a>/etc/group</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>/ect/group 文件是用户组配置文件，即用户组的所有信息都存放在此文件中。</li>
+<h2 id="etc-group"><a href="#etc-group" class="headerlink" title="&#x2F;etc&#x2F;group"></a>&#x2F;etc&#x2F;group</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>&#x2F;ect&#x2F;group 文件是用户组配置文件，即用户组的所有信息都存放在此文件中。</li>
 <li>记录组 ID（GID）和组名相对应的文件</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zhaorunyuan:x:1005:</span><br><span class="line">chengzhen:x:1006:</span><br></pre></td></tr></table></figure>
+
 <h3 id="格式-1"><a href="#格式-1" class="headerlink" title="格式"></a>格式</h3><ul>
 <li>组名：密码：GID：该用户组中的用户列表<ul>
 <li>组名：用户组的名字</li>
-<li>密码：x代表有密码，真正密码加密存储在/etc/gshadow 文件</li>
-<li>GID：群组的 ID 号，与 /etc/passwd 文件中第 4 个字段的 GID 相对应</li>
+<li>密码：x代表有密码，真正密码加密存储在&#x2F;etc&#x2F;gshadow 文件</li>
+<li>GID：群组的 ID 号，与 &#x2F;etc&#x2F;passwd 文件中第 4 个字段的 GID 相对应</li>
 <li>该用户组中的用户列表：此字段列出每个群组包含的所有用户。需要注意的是，如果该用户组是这个用户的初始组，则该用户不会写入这个字段，可以这么理解，该字段显示的用户都是这个用户组的附加用户。</li>
 </ul>
 </li>
 </ul>
-<h2 id="etc-gshadow"><a href="#etc-gshadow" class="headerlink" title="/etc/gshadow"></a>/etc/gshadow</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>组用户信息存储在 /etc/group 文件中，而将组用户的密码信息存储在 /etc/gshadow 文件中。</li>
+<h2 id="etc-gshadow"><a href="#etc-gshadow" class="headerlink" title="&#x2F;etc&#x2F;gshadow"></a>&#x2F;etc&#x2F;gshadow</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>组用户信息存储在 &#x2F;etc&#x2F;group 文件中，而将组用户的密码信息存储在 &#x2F;etc&#x2F;gshadow 文件中。</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root:*::</span><br><span class="line">daemon:*::</span><br><span class="line">bin:*::</span><br><span class="line">sys:*::</span><br><span class="line">adm:*::syslog,ssduser</span><br><span class="line"><span class="built_in">tty</span>:*::syslog</span><br><span class="line">...</span><br><span class="line">chengzhen:!::</span><br></pre></td></tr></table></figure>
+
 <h3 id="格式-2"><a href="#格式-2" class="headerlink" title="格式"></a>格式</h3><ul>
 <li>组名：加密密码：组管理员：组附加用户列表<ul>
 <li>加密密码：通常不设置组密码，因此该字段常为空，但有时为 “!”，指的是该群组没有组密码，也不设有群组管理员</li>
 <li>组管理员：相当于该群组范围内的root。如果有群组管理员，那么他就能将用户加入自己管理的群组中，也就免去麻烦 root 了</li>
-<li>和 /etc/group 文件中附加组显示内容相同。</li>
+<li>和 &#x2F;etc&#x2F;group 文件中附加组显示内容相同。</li>
 </ul>
 </li>
 </ul>
-<h2 id="etc-login-defs"><a href="#etc-login-defs" class="headerlink" title="/etc/login.defs"></a>/etc/login.defs</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>/etc/login.defs 文件用于在创建用户时，对用户的一些基本属性做默认设置，例如指定用户 UID 和 GID 的范围，用户的过期时间，密码的最大长度，等等。</li>
+<h2 id="etc-login-defs"><a href="#etc-login-defs" class="headerlink" title="&#x2F;etc&#x2F;login.defs"></a>&#x2F;etc&#x2F;login.defs</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>&#x2F;etc&#x2F;login.defs 文件用于在创建用户时，对用户的一些基本属性做默认设置，例如指定用户 UID 和 GID 的范围，用户的过期时间，密码的最大长度，等等。</li>
 <li>该文件的用户默认配置对 root 用户无效。</li>
-<li>该文件中的配置与 /etc/passwd 和 /etc/shadow 文件中的用户信息有冲突时，系统会以/etc/passwd 和 /etc/shadow 为准。</li>
+<li>该文件中的配置与 &#x2F;etc&#x2F;passwd 和 &#x2F;etc&#x2F;shadow 文件中的用户信息有冲突时，系统会以&#x2F;etc&#x2F;passwd 和 &#x2F;etc&#x2F;shadow 为准。</li>
 </ul>
 <h2 id="用户信息总结"><a href="#用户信息总结" class="headerlink" title="用户信息总结"></a>用户信息总结</h2><ul>
-<li>用户基本信息：存储在 /etc/passwd 文件中；</li>
-<li>用户密码信息：存储在 /etc/shadow 文件中；</li>
-<li>用户群组基本信息：存储在 /etc/group 文件中；</li>
-<li>用户群组信息信息：存储在 /etc/gshadow 文件中；</li>
-<li>用户个人文件：主目录默认位于 /home/用户名，邮箱位于 /var/spool/mail/用户名。</li>
+<li>用户基本信息：存储在 &#x2F;etc&#x2F;passwd 文件中；</li>
+<li>用户密码信息：存储在 &#x2F;etc&#x2F;shadow 文件中；</li>
+<li>用户群组基本信息：存储在 &#x2F;etc&#x2F;group 文件中；</li>
+<li>用户群组信息信息：存储在 &#x2F;etc&#x2F;gshadow 文件中；</li>
+<li>用户个人文件：主目录默认位于 &#x2F;home&#x2F;用户名，邮箱位于 &#x2F;var&#x2F;spool&#x2F;mail&#x2F;用户名。</li>
 </ul>
 <h2 id="docker-去除sudo"><a href="#docker-去除sudo" class="headerlink" title="docker 去除sudo"></a>docker 去除sudo</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/group | grep docker <span class="comment"># 查看docker组是否存在</span></span><br><span class="line"><span class="built_in">sudo</span> groupadd docker  <span class="comment"># 如果不存在则新建docker组</span></span><br><span class="line"><span class="built_in">sudo</span> gpasswd -a <span class="variable">$&#123;USER&#125;</span> docker <span class="comment"># 添加用户到docker组</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> a+rw /var/run/docker.sock <span class="comment"># 增加读写权限</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart docker <span class="comment"># 重启docker服务</span></span><br></pre></td></tr></table></figure>
 
@@ -528,12 +533,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">42k</span>
+    <span title="站点总字数">43k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">38 分钟</span>
+    <span title="站点阅读时长">39 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

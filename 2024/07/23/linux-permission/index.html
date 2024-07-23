@@ -244,13 +244,13 @@
 
       
         <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
-<li>本文初步试验了Linux系统下的文件权限设置，文件权限计算以及文件权限修改，谨做记录。<span id="more"></span>
-</li>
+<li>本文初步试验了Linux系统下的文件权限设置，文件权限计算以及文件权限修改，谨做记录。<span id="more"></span></li>
 </ul>
 <h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><h3 id="查看文件详情"><a href="#查看文件详情" class="headerlink" title="查看文件详情"></a>查看文件详情</h3><ul>
 <li>查看文件详情</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -alh</span><br><span class="line"><span class="comment"># a代表显示全部的文件，包括隐藏文件</span></span><br><span class="line"><span class="comment"># l代表使用长格式列出文件和目录信息。</span></span><br><span class="line"><span class="comment"># h代表用KB M G表示大小</span></span><br><span class="line"></span><br><span class="line">drwxrwxr-x 13 chengzhen chengzhen     230 May  7 08:12 .</span><br><span class="line">drwxr-xr-x 25 chengzhen chengzhen    4096 May  7 08:12 ..</span><br><span class="line">drwxrwxr-x 13 chengzhen chengzhen    4096 Oct 20  2022 RobustVideoMatting</span><br><span class="line">-rwxrwxr-x  1 chengzhen chengzhen       0 May  7 08:12 <span class="built_in">test</span></span><br><span class="line">drwxrwxr-x  2 chengzhen chengzhen      19 Oct 20  2022 test_tar</span><br><span class="line">-rw-rw-r--  1 chengzhen chengzhen       0 Oct 20  2022 training.log</span><br><span class="line">drwxrwxr-x  2 chengzhen chengzhen      27 Sep  6  2022 .vscode</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>第一列：规定了不同的用户对文件所拥有的权限，具体权限的含义将在后续章节中讲解。</li>
 <li>第二列：引用计数，文件的引用计数代表该文件的硬链接个数，而目录的引用计数代表该目录有多少个一级子目录。</li>
@@ -265,10 +265,13 @@
 </li>
 <li><p>中间9位：所有者权限+所属组权限+其他人权限</p>
 </li>
-<li>rwx分别表示读权限 写权限 执行权限</li>
-<li>755权限：111 101 101，即rwxr-xr-x</li>
+<li><p>rwx分别表示读权限 写权限 执行权限</p>
+</li>
+<li><p>755权限：111 101 101，即rwxr-xr-x</p>
+</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 755 file <span class="comment"># 更改file文件的权限位为rwxr-xr-x</span></span><br><span class="line"><span class="built_in">chmod</span> +x file <span class="comment"># 为file文件增加可执行权限,三个x权限都会加上</span></span><br><span class="line"><span class="comment"># u g o a表示产生作用的范围，用户，所属组，其他人，所有</span></span><br><span class="line"><span class="comment"># + - 表示添加或者删除权限</span></span><br><span class="line"><span class="comment"># r w x表示三种权限</span></span><br><span class="line"><span class="built_in">chmod</span> u+x file <span class="comment"># 当前用户增加执行权限</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="文件真正权限计算"><a href="#文件真正权限计算" class="headerlink" title="文件真正权限计算"></a>文件真正权限计算</h3><ul>
 <li><p>umask权限</p>
 <ul>
@@ -277,16 +280,17 @@
 <li>第 1 个数代表的是文件所具有的特殊权限（SetUID、SetGID、Sticky BIT）;后三个数代表用户 组 其他人三种身份；输入umask命令可能只会显示后三位</li>
 </ul>
 </li>
-<li><p>文件（或目录）的初始权限 = 文件（或目录）的最大默认权限 - umask权限</p>
+<li><p>文件（或目录）的初始权限 &#x3D; 文件（或目录）的最大默认权限 - umask权限</p>
 </li>
-<li>默认权限<ul>
+<li><p>默认权限</p>
+<ul>
 <li>文件：文件的最大默认权限是 666，换算成字母就是 “-rw-rw-rw-“<ul>
-<li>umask 的值是 002，换算成字母为 “————w-“。把两个字母权限相减，得到 (-rw-rw-rw-) - (————w-) = (-rw-rw-r—)，这就是新建文件的初始权限。</li>
+<li>umask 的值是 002，换算成字母为 “——–w-“。把两个字母权限相减，得到 (-rw-rw-rw-) - (——–w-) &#x3D; (-rw-rw-r–)，这就是新建文件的初始权限。</li>
 </ul>
 </li>
 <li>目录：目录的默认权限最大可以是 777，换算成字母就是 “drwxrwxrwx”<ul>
 <li>目录如果没有x权限则不能cd进去，所以必须有x权限</li>
-<li>umask 的值是 002，换算成字母为 “————w-“。把两个字母权限相减，得到 (drwxrwxrwx) - (————w-) = (drwxrwxr-x)，这就是新建目录的初始权限。</li>
+<li>umask 的值是 002，换算成字母为 “——–w-“。把两个字母权限相减，得到 (drwxrwxrwx) - (——–w-) &#x3D; (drwxrwxr-x)，这就是新建目录的初始权限。</li>
 </ul>
 </li>
 </ul>
@@ -477,12 +481,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">42k</span>
+    <span title="站点总字数">43k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">38 分钟</span>
+    <span title="站点阅读时长">39 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
