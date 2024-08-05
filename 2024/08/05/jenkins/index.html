@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/cz.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/cz.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"czhappy.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="简介Jenkins是一个开源的、可扩展的持续集成、交付、部署（软件&#x2F;代码的编译、打包、部署）的平台。允许持续集成和持续交付项目，可以处理任何类型的构建或持续集成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins Tutorial">
+<meta property="og:url" content="https://czhappy.github.io/2024/08/05/jenkins/index.html">
+<meta property="og:site_name" content="Czhappy&#39;s Blog">
+<meta property="og:description" content="简介Jenkins是一个开源的、可扩展的持续集成、交付、部署（软件&#x2F;代码的编译、打包、部署）的平台。允许持续集成和持续交付项目，可以处理任何类型的构建或持续集成。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://czhappy.github.io/2024/07/18/awk/ins/3.png">
+<meta property="og:image" content="https://czhappy.github.io/2024/07/18/awk/ins/2.png">
+<meta property="article:published_time" content="2024-08-05T08:32:00.000Z">
+<meta property="article:modified_time" content="2024-08-05T09:53:01.422Z">
+<meta property="article:author" content="czhappy">
+<meta property="article:tag" content="CI&#x2F;CD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://czhappy.github.io/2024/07/18/awk/ins/3.png">
+
+<link rel="canonical" href="https://czhappy.github.io/2024/08/05/jenkins/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Jenkins Tutorial | Czhappy's Blog</title>
+  
+
+
+  <script data-pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?96def23e2b1b6bb5881bb05dfe7f920e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Czhappy's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://czhappy.github.io/2024/08/05/jenkins/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="czhappy">
+      <meta itemprop="description" content="Record & Share.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Czhappy's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins Tutorial
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-08-05 16:32:00 / 修改时间：17:53:01" itemprop="dateCreated datePublished" datetime="2024-08-05T16:32:00+08:00">2024-08-05</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2024/07/18/awk/ins/3.png"></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Jenkins是一个开源的、可扩展的持续集成、交付、部署（软件&#x2F;代码的编译、打包、部署）的平台。允许持续集成和持续交付项目，可以处理任何类型的构建或持续集成。</p>
+<span id="more"></span>
+<h2 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
+<li><p>Repo中Jenkinsfile文件声明了在PR commit时需要触发的流程。一个Pipeline中可以指定执行CI&#x2F;CD流程的机器节点，可以将流程划分为若干个stage，比如代码拉取，代码风格检查，构建，测试，镜像生成，部署等等。<br><img src="/2024/07/18/awk/ins/2.png"></p>
+</li>
+<li><p>流程框架</p>
+  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent none <span class="comment">// 会在master节点上运行，不会分配到其他节点上运行</span></span><br><span class="line">    stages &#123; <span class="comment">// 一组stage</span></span><br><span class="line">        stage(<span class="string">&quot;Jenkins environment injection&quot;</span>) &#123;</span><br><span class="line">            agent &#123;</span><br><span class="line">                label <span class="string">&quot;cn_simulator&quot;</span> <span class="comment">// 使用这个标签</span></span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                populateEnv()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    stage(<span class="string">&quot;Package pushing&quot;</span>) &#123;</span><br><span class="line">        when &#123; <span class="comment">// 满足条件才执行这个stage</span></span><br><span class="line">            environment <span class="attr">name:</span> <span class="string">&#x27;IS_RELEASE_BRANCH&#x27;</span>, <span class="attr">value:</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        steps &#123;</span><br><span class="line">            script &#123;</span><br><span class="line">                <span class="comment">// 函数调用</span></span><br><span class="line">                <span class="keyword">def</span> am_sent = uploadPackages(<span class="string">&quot;$&#123;env.WORKSPACE&#125;/packages&quot;</span>, <span class="string">&quot;$&#123;env.WORKSPACE&#125;/packages&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span> (am_sent == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;No packages were built (or sent)!&quot;</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 在pipeline结束时，根据执行结果的不同，执行不同的操作</span></span><br><span class="line">    post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            echo <span class="string">&quot;clean up workspace for $&#123;PLATFORM&#125; build in node $&#123;env.NODE_NAME&#125;&quot;</span></span><br><span class="line">            <span class="comment">// 执行一段bash命令</span></span><br><span class="line">            sh <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">                sudo rm -rf $&#123;env.WORKSPACE&#125;/*</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        success &#123;</span><br><span class="line">            echo <span class="string">&quot;$&#123;PLATFORM&#125; build succeeeded!&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        unstable &#123;</span><br><span class="line">            echo <span class="string">&quot;$&#123;PLATFORM&#125; build unstable :/&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        aborted &#123;</span><br><span class="line">            echo <span class="string">&quot;$&#123;PLATFORM&#125; build got aborted :/&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        failure &#123;</span><br><span class="line">            echo <span class="string">&quot;$&#123;PLATFORM&#125; build failed :/&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="stage"><a href="#stage" class="headerlink" title="stage"></a>stage</h3><ul>
+<li>定义一个阶段，stages也可以定义一组stage，pipeline是由多组stage构成的。  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个函数</span></span><br><span class="line"><span class="keyword">def</span> killOldDownstreamJobs() &#123;</span><br><span class="line">    <span class="keyword">def</span> currentBuild = currentBuild.rawBuild</span><br><span class="line">    <span class="keyword">def</span> downstreamJobs = currentBuild.getDownstreamBuilds()</span><br><span class="line">    <span class="keyword">for</span> (job <span class="keyword">in</span> downstreamJobs) &#123;</span><br><span class="line">        job.doKill()</span><br><span class="line">        echo <span class="string">&quot;Killed downstream job: $&#123;job.fullDisplayName&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">stage(<span class="string">&quot;Kill off any older (running) builds&quot;</span>) &#123;</span><br><span class="line">    agent &#123;</span><br><span class="line">        label <span class="string">&quot;cn_simulator&quot;</span> <span class="comment">// 执行机器的标签</span></span><br><span class="line">    &#125;</span><br><span class="line">    when &#123;</span><br><span class="line">        environment <span class="attr">name:</span> <span class="string">&#x27;IS_RELEASE_BRANCH&#x27;</span>, <span class="attr">value:</span> <span class="string">&#x27;false&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    steps &#123;</span><br><span class="line">        script &#123;</span><br><span class="line">            echo <span class="string">&quot;Aborting prior builds&quot;</span></span><br><span class="line">            cancelPriorBuilds()</span><br><span class="line">            echo <span class="string">&quot;Aborting any prior downstream jobs&quot;</span></span><br><span class="line">            killOldDownstreamJobs(<span class="string">&quot;plusai_qnx_on_demand&quot;</span>)</span><br><span class="line">            killOldDownstreamJobs(<span class="string">&quot;event_recorder_perf_test&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="node"><a href="#node" class="headerlink" title="node"></a>node</h3><ul>
+<li>node指的是执行脚本的机器，通过后台配置标签，可以把一组机器放到一个node标签下，使用这个node标签，Jenkins将会自动选择一个可用的机器进行执行。也可以直接指定node为某一台特定机器。  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">agent &#123;</span><br><span class="line">    label <span class="string">&quot;cn_simulator&quot;</span> <span class="comment">// 执行机器的标签</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">node(<span class="string">&quot;docker&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// do something...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Step"><a href="#Step" class="headerlink" title="Step"></a>Step</h3><ul>
+<li>steps 用于声明一组scrips，然后就可以愉快地写bash脚本进行调用执行了。  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">stage(<span class="string">&quot;Collect Results&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">def</span> remote_addr = <span class="string">&quot;user@$&#123;server&#125;:$&#123;result_dir&#125;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> local_addr = <span class="string">&quot;./&quot;</span></span><br><span class="line">    <span class="keyword">def</span> command = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        sshpass -p &quot;user&quot; scp -o StrictHostKeyChecking=no -r $&#123;remote_addr&#125; $&#123;local_addr&#125; || echo &quot;scp failed&quot;</span></span><br><span class="line"><span class="string">        mkdir -p $&#123;result_log_dir_x86&#125;</span></span><br><span class="line"><span class="string">        mv large_scale_$&#123;env.BUILD_NUMBER&#125;/* $&#123;result_log_dir_x86&#125; || true</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    sh(<span class="attr">script:</span> command, <span class="attr">returnStdout:</span> <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="凭证"><a href="#凭证" class="headerlink" title="凭证"></a>凭证</h3><ul>
+<li>docker.withRegistry  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker.withRegistry(<span class="string">&quot;$&#123;dregistry.url&#125;&quot;</span>, <span class="string">&quot;$&#123;dregistry.credential&#125;&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// do something...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>withCredentials<ul>
+<li>Dashboard -&gt; Manage Jenkins -&gt; Credentials添加<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">withCredentials([usernamePassword(<span class="attr">credentialsId:</span> <span class="string">&#x27;sz1&#x27;</span>,</span><br><span class="line">            <span class="symbol">passwordVariable:</span> <span class="string">&#x27;SZ1_PASS&#x27;</span>, <span class="attr">usernameVariable:</span> <span class="string">&#x27;SZ1_USER&#x27;</span>)]) &#123;</span><br><span class="line">    <span class="keyword">def</span> sz1_remote = [:]</span><br><span class="line">    sz1_remote.name = <span class="string">&quot;remote_sz1&quot;</span></span><br><span class="line">    sz1_remote.host = <span class="string">&quot;192.168.xx.xx&quot;</span></span><br><span class="line">    sz1_remote.user = <span class="string">&quot;$&#123;SZ1_USER&#125;&quot;</span></span><br><span class="line">    sz1_remote.password = <span class="string">&quot;$&#123;SZ1_PASS&#125;&quot;</span></span><br><span class="line">    sz1_remote.allowAnyHosts = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">def</span> sz1_command = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        ......</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    sshCommand(<span class="attr">remote:</span> sz1_remote, <span class="attr">command:</span> sz1_command, <span class="attr">failOnError:</span> <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><ul>
+<li>为了避免对同一个资源同时使用，可以对资源进行加锁。同一个lock_name不能被加锁两次，后来的只能等待。<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lock(lock_name) &#123;</span><br><span class="line">    timeout(<span class="attr">time:</span> timeout_mins, <span class="attr">unit:</span> <span class="string">&#x27;MINUTES&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// run script via ssh</span></span><br><span class="line">        output = sh(<span class="attr">script:</span> my_script,</span><br><span class="line">                    <span class="symbol">returnStdout:</span> <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>从系统中随机挑选一个未加锁的可用资源<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> get_avaliable_x86() &#123;</span><br><span class="line">    <span class="keyword">def</span> resource_list = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">1</span>; x &lt; <span class="number">10</span>; x++) &#123;</span><br><span class="line">        resource_list.add(<span class="string">&quot;ci-slave-0$x-simulation&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    resource_list.add(<span class="string">&quot;ci-slave-10-simulation&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> (resource <span class="keyword">in</span> resource_list) &#123;</span><br><span class="line">        <span class="keyword">def</span> res = LRM.get().fromName(resource)</span><br><span class="line">        <span class="keyword">if</span> (res &amp;&amp; (res.isLocked() || res.isQueued())) &#123;</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        println(<span class="string">&quot;Use $resource ....&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> resource.substring(<span class="number">0</span>, resource.length() - <span class="number">11</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;ci-slave-01&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="推送页面"><a href="#推送页面" class="headerlink" title="推送页面"></a>推送页面</h3><ul>
+<li>将jenkins生成的某些页面展示在结果主页（左侧栏）  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stage(<span class="string">&quot;Publish HTML&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">def</span> target_dir = <span class="string">&quot;$&#123;result_log_dir_x86&#125;&quot;</span></span><br><span class="line">    publishHTML([<span class="attr">allowMissing:</span> <span class="literal">true</span>, <span class="attr">keepAll:</span> <span class="literal">true</span>,</span><br><span class="line">        <span class="symbol">reportDir:</span> target_dir,</span><br><span class="line">        <span class="symbol">reportFiles:</span> <span class="string">&#x27;index.html&#x27;</span>,</span><br><span class="line">        <span class="symbol">reportName:</span> <span class="string">&#x27;Large Scale Simulation Reports&#x27;</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="时长控制"><a href="#时长控制" class="headerlink" title="时长控制"></a>时长控制</h3><ul>
+<li>设置stage最长运行时间，防止一直卡死  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">timeout(<span class="attr">time:</span> <span class="number">30</span>, <span class="attr">unit:</span> <span class="string">&#x27;MINUTES&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// todo</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>czhappy
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://czhappy.github.io/2024/08/05/jenkins/" title="Jenkins Tutorial">https://czhappy.github.io/2024/08/05/jenkins/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CI-CD/" rel="tag"># CI/CD</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/08/05/design-patterns/" rel="prev" title="设计模式-C++版">
+      <i class="fa fa-chevron-left"></i> 设计模式-C++版
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pipeline"><span class="nav-number">2.</span> <span class="nav-text">Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stage"><span class="nav-number">2.2.</span> <span class="nav-text">stage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node"><span class="nav-number">2.3.</span> <span class="nav-text">node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step"><span class="nav-number">2.4.</span> <span class="nav-text">Step</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%AD%E8%AF%81"><span class="nav-number">2.5.</span> <span class="nav-text">凭证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81"><span class="nav-number">2.6.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.7.</span> <span class="nav-text">推送页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%95%BF%E6%8E%A7%E5%88%B6"><span class="nav-number">2.8.</span> <span class="nav-text">时长控制</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="czhappy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">czhappy</p>
+  <div class="site-description" itemprop="description">Record & Share.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/czHappy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;czHappy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chengzhen666666@gmail.com" title="E-Mail → mailto:chengzhen666666@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">czhappy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">161k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:27</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
